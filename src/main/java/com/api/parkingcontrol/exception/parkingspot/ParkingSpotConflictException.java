@@ -1,4 +1,4 @@
-package com.api.parkingcontrol.exception;
+package com.api.parkingcontrol.exception.parkingspot;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

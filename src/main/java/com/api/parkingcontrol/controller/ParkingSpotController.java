@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.api.parkingcontrol.dtos.ParkingSpotDto;
-import com.api.parkingcontrol.dtos.ParkingSpotMapper;
+import com.api.parkingcontrol.dtos.parkingspot.ParkingSpotDto;
+import com.api.parkingcontrol.dtos.parkingspot.ParkingSpotMapper;
 import com.api.parkingcontrol.model.ParkingSpot;
 import com.api.parkingcontrol.service.ParkingSpotService;
 

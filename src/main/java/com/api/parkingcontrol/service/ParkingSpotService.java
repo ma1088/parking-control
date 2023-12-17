@@ -6,8 +6,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.api.parkingcontrol.exception.ParkingSpotConflictException;
-import com.api.parkingcontrol.exception.ParkingSpotNotFoundException;
+import com.api.parkingcontrol.exception.parkingspot.ParkingSpotConflictException;
+import com.api.parkingcontrol.exception.parkingspot.ParkingSpotNotFoundException;
 import com.api.parkingcontrol.model.ParkingSpot;
 import com.api.parkingcontrol.repository.ParkingSpotRepository;
 

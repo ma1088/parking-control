@@ -1,4 +1,4 @@
-package com.api.parkingcontrol.exception;
+package com.api.parkingcontrol.exception.parkingspot;
 
 import java.util.UUID;
 import org.springframework.http.HttpStatus;

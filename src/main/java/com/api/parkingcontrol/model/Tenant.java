@@ -22,7 +22,7 @@ public class Tenant {
     @Column(name = "name", nullable = false, length = 100)
     String name;
 
-    @Column(name = "address", nullable = false, length = 200)
+    @Column(name = "address", nullable = false, length = 200, unique = true)
     String address;
 
     @Column(name = "cnpj", nullable = false, length = 14)

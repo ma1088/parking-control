@@ -1,5 +1,6 @@
 package com.api.parkingcontrol.model;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 import jakarta.persistence.Column;
@@ -13,8 +14,9 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "tb_tenant")
-public class Tenant {
-    
+public class Tenant implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     UUID id;

@@ -1,5 +1,7 @@
 package com.api.parkingcontrol.dtos.parkingspot;
 
+import java.util.UUID;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -30,4 +32,7 @@ public class ParkingSpotDto {
     
     @NotBlank
     private String block;
+
+    @NotBlank
+    private UUID tenantId;
 }

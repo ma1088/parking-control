@@ -37,7 +37,7 @@ public class ParkingSpotController {
     final ParkingSpotService service;
     final ParkingSpotMapper mapper;
 
-    @PostMapping
+    @PostMapping(consumes = "application/json")
     public ResponseEntity<ParkingSpot> saveParkingSpot(@RequestBody @Valid ParkingSpotDto parkingSpotDto) {
         ParkingSpot parkingSpot = mapper.fromParkingSpotDtoToParkingSpot(parkingSpotDto);
         parkingSpot.setRegistrationDate(LocalDateTime.now(ZoneId.of("UTC")));

@@ -28,5 +28,5 @@ public class Tenant implements Serializable {
     String address;
 
     @Column(name = "cnpj", nullable = false, length = 14)
-    Long cnpj;
+    String cnpj;
 }

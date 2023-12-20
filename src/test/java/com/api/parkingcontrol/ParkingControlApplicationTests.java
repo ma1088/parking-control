@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.api.parkingcontrol.dtos.parkingspot.ParkingSpotDto;
@@ -21,6 +22,7 @@ import com.api.parkingcontrol.repository.TenantRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+@ActiveProfiles("test")
 @SpringBootTest
 @AutoConfigureMockMvc
 class ParkingControlApplicationTests {
@@ -40,31 +42,36 @@ class ParkingControlApplicationTests {
 	void contextLoads() throws JsonProcessingException, Exception {
 		TenantDto tenantDto = TenantDto.builder()
 				.address("null")
-				.cnpj(12345678901L)
+				.cnpj("12345678901234")
 				.name("null")
 				.build();
 		mockMvc.perform(post("/tenant")
-				.content("application/json")
+				.accept("*/*")
+				.contentType("application/json")
 				.content(objectMapper.writeValueAsString(tenantDto)))
-				.andExpect(status().isOk());
+				.andExpect(status().isCreated());
 		List<Tenant> tenantEntities = tenantRepository.findAll();
-		assertEquals(1,tenantEntities.size());
+		assertEquals(1, tenantEntities.size());
 
 		ParkingSpotDto parkingSpotDto = ParkingSpotDto.builder()
-				.apartment("null")
-				.block("null")
-				.brandCar("null")
-				.colorCar("null")
-				.parkingSpotNumber("null")
-				.responsibleName("null")
+				.apartment("string")
+				.block("string")
+				.brandCar("string")
+				.colorCar("string")
+				.licensePlateCar("null")
+				.modelCar("null")
+				.parkingSpotNumber("string")
+				.responsibleName("string")
 				.tenantId(tenantEntities.get(0).getId())
 				.build();
-						mockMvc.perform(post("/parkingspot")
-				.content("application/json")
+
+		mockMvc.perform(post("/parkingspot")
+				.accept("*/*")
+				.contentType("application/json")
 				.content(objectMapper.writeValueAsString(parkingSpotDto)))
-				.andExpect(status().isOk());
+				.andExpect(status().isCreated());
 		List<ParkingSpot> parkingSpotEntities = parkingSpotRepository.findAll();
-		assertEquals(1,parkingSpotEntities.size());
+		assertEquals(1, parkingSpotEntities.size());
 	}
 
 }

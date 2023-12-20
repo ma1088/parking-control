@@ -31,7 +31,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RequestMapping("/parkingSpot")
+@RequestMapping("/parkingspot")
 public class ParkingSpotController {
 
     final ParkingSpotService service;
@@ -41,7 +41,7 @@ public class ParkingSpotController {
     public ResponseEntity<ParkingSpot> saveParkingSpot(@RequestBody @Valid ParkingSpotDto parkingSpotDto) {
         ParkingSpot parkingSpot = mapper.fromParkingSpotDtoToParkingSpot(parkingSpotDto);
         parkingSpot.setRegistrationDate(LocalDateTime.now(ZoneId.of("UTC")));
-        return ResponseEntity.status(HttpStatus.OK)
+        return ResponseEntity.status(HttpStatus.CREATED)
                 .body(service.saveParkingSpot(parkingSpot));
     }
 

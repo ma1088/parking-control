@@ -5,6 +5,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,7 +62,7 @@ class ParkingControlApplicationTests {
 				.licensePlateCar("null")
 				.modelCar("null")
 				.parkingSpotNumber("string")
-				.responsibleName("string")
+				.responsiblePerson(getResponsiblePerson())
 				.tenantId(tenantEntities.get(0).getId())
 				.build();
 
@@ -72,6 +73,10 @@ class ParkingControlApplicationTests {
 				.andExpect(status().isCreated());
 		List<ParkingSpot> parkingSpotEntities = parkingSpotRepository.findAll();
 		assertEquals(1, parkingSpotEntities.size());
+	}
+
+	private UUID getResponsiblePerson() {
+		return UUID.randomUUID();
 	}
 
 }

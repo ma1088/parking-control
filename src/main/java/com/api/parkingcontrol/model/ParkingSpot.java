@@ -11,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
@@ -43,8 +44,9 @@ public class ParkingSpot implements Serializable {
     @Column(nullable = false)
     private LocalDateTime registrationDate;
 
-    @Column(nullable = false, length = 130)
-    private String responsibleName;
+    @ManyToOne(cascade = CascadeType.DETACH)
+    @JoinColumn(nullable = false)
+    private ResponsiblePerson responsiblePerson;
 
     @Column(nullable = false, length = 30)
     private String apartment;

@@ -1,5 +1,7 @@
 package com.api.parkingcontrol.dtos.tenant;
 
+import java.util.UUID;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -18,6 +20,9 @@ public class TenantDto {
     @NotBlank
     String address;
 
-    @NotNull
+    @NotBlank
     String cnpj;
+
+    @NotNull
+    UUID responsiblePerson;
 }

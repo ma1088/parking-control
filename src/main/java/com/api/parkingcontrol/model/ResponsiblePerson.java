@@ -1,7 +1,7 @@
 package com.api.parkingcontrol.model;
 
 import java.util.UUID;
-
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.LocalDate;
 
@@ -22,12 +22,14 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @Table(name = "tb_responsible_person")
-public class ResponsiblePerson {
+public class ResponsiblePerson implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @Column(nullable = false, unique = true, length = 15)
+    @Column(nullable = false, unique = true, length = 14)
     private String cpf;
 
     @Column(nullable = false, length = 125)
@@ -36,7 +38,7 @@ public class ResponsiblePerson {
     @Column(nullable = false)
     private LocalDate birthDate;
 
-    @Column(nullable = false, length = 15)
+    @Column(nullable = false, length = 14)
     private String phoneNumber;
 
     @Column(nullable = false)

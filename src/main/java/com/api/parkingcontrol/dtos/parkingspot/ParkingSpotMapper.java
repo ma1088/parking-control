@@ -11,8 +11,7 @@ public interface ParkingSpotMapper {
 
 
     @Mapping(target = "registrationDate", expression = "java(java.time.LocalDateTime.now())")
-    @Mapping(target = "tenant.id", source = "tenantId")
-    @Mapping(target = "responsiblePerson.id", source = "responsiblePerson")
+    @Mapping(target = "tenantUnit.id", source = "tenantUnitId")
     public ParkingSpot fromParkingSpotDtoToParkingSpot(ParkingSpotDto dto);
 
 }

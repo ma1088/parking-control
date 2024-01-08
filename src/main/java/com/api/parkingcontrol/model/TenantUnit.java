@@ -13,37 +13,38 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Table(name = "tb_parking_spot")
-public class ParkingSpot implements Serializable {
+@Table(name = "tb_tenant_unit")
+public class TenantUnit implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    UUID id;
 
-    @Column(nullable = false, unique = true, length = 10)
-    private String parkingSpotNumber;
+    @Column(nullable = false, length = 10)
+    String block;
 
-    @Column(nullable = false, unique = true, length = 7)
-    private String licensePlateCar;
-
-    @Column(nullable = false, length = 70)
-    private String brandCar;
-
-    @Column(nullable = false, length = 70)
-    private String modelCar;
-
-    @Column(nullable = false, length = 70)
-    private String colorCar;
+    @Column(nullable = false, length = 20)
+    String unitName;
 
     @Column(nullable = false)
-    private LocalDateTime registrationDate;
+    LocalDateTime registrationDate;
 
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(nullable = false)
-    private TenantUnit tenantUnit;
+    Tenant tenant;
+
+    @ManyToOne(cascade = CascadeType.DETACH)
+    @JoinColumn(nullable = false)
+    ResponsiblePerson responsiblePerson;
 }

@@ -15,3 +15,13 @@ Pessoa ||--|{ "Vagas de Garagem" : possui
 Pessoa ||--o{ "Condomínio" : "responde por"
 ```
 O endereço de um condomínio, o CNPJ de um condomínio e o CPF de uma pessoa são valores únicos.
+### 24/12/2023
+#### TenantUnit
+Unidade (apartamento) ao qual uma vaga de garagem deve ser associada
+```mermaid
+erDiagram
+Pessoa ||--o{ Unidade : possui
+Pessoa ||--o{ "Condomínio" : "responde por"
+Unidade ||--|{ "Vagas de Garagem": possui
+"Condomínio" ||--|{ Unidade : possui
+```

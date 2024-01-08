@@ -32,14 +32,5 @@ public class ParkingSpotDto {
     private String colorCar;
 
     @NotNull
-    private UUID responsiblePerson;
-
-    @NotBlank
-    private String apartment;
-    
-    @NotBlank
-    private String block;
-
-    @NotNull
-    private UUID tenantId;
+    private UUID tenantUnitId;
 }

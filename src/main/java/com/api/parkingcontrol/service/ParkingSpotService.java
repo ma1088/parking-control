@@ -29,7 +29,7 @@ public class ParkingSpotService {
             throw new ParkingSpotConflictException("car already has a parking spot.");
         if (repository.existsByParkingSpotNumber(parkingSpot.getParkingSpotNumber()))
             throw new ParkingSpotConflictException("parking spot already in use.");
-        if (repository.existsByApartmentAndBlock(parkingSpot.getApartment(), parkingSpot.getBlock()))
+        if (repository.existsByTenantUnit(parkingSpot.getTenantUnit()))
             throw new ParkingSpotConflictException("unit already has a car registered for a parking spot");
     }
 

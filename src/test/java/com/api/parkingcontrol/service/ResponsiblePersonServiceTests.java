@@ -1,9 +1,9 @@
 package com.api.parkingcontrol.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -21,6 +21,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.lang.NonNull;
 
 import com.api.parkingcontrol.exception.responsibleperson.ResponsiblePersonNotFoundException;
 import com.api.parkingcontrol.model.ResponsiblePerson;
@@ -35,9 +36,10 @@ class ResponsiblePersonServiceTests {
 
     @Test
     void createTest() {
+        ResponsiblePerson responsiblePersonToSave = getPerson();
         ResponsiblePerson responsiblePerson = getPerson();
         responsiblePerson.setId(UUID.randomUUID());
-        when(repository.save(any(ResponsiblePerson.class))).thenReturn(responsiblePerson);
+        when(repository.save(responsiblePersonToSave)).thenReturn(responsiblePerson);
 
         ResponsiblePerson result = service.create(getPerson());
         assertEquals(responsiblePerson, result);
@@ -45,7 +47,7 @@ class ResponsiblePersonServiceTests {
 
     @Test
     void updateResponsiblePersonTest() {
-        UUID id = UUID.randomUUID();
+        UUID id = getId();
         ResponsiblePerson responsiblePerson = getPerson();
         responsiblePerson.setId(id);
         when(repository.findById(id)).thenReturn(Optional.of(responsiblePerson));
@@ -57,7 +59,7 @@ class ResponsiblePersonServiceTests {
 
     @Test
     void updateResponsiblePersonTestFail() {
-        UUID id = UUID.randomUUID();
+        UUID id = getId();
         ResponsiblePerson responsiblePerson = getPerson();
         responsiblePerson.setId(id);
         when(repository.findById(id)).thenAnswer(item -> {
@@ -73,7 +75,7 @@ class ResponsiblePersonServiceTests {
 
     @Test
     void deleteTest() {
-        UUID id = UUID.randomUUID();
+        UUID id = getId();
         ResponsiblePerson responsiblePerson = getPerson();
         responsiblePerson.setId(id);
         when(repository.findById(id)).thenReturn(Optional.of(responsiblePerson));
@@ -83,7 +85,7 @@ class ResponsiblePersonServiceTests {
 
     @Test
     void findByIdTest() {
-        UUID id = UUID.randomUUID();
+        UUID id = getId();
         ResponsiblePerson responsiblePerson = getPerson();
         responsiblePerson.setId(id);
 
@@ -95,7 +97,7 @@ class ResponsiblePersonServiceTests {
 
     @Test
     void findByIdTestFail() {
-        UUID id = UUID.randomUUID();
+        UUID id = getId();
         ResponsiblePerson responsiblePerson = getPerson();
         responsiblePerson.setId(id);
         when(repository.findById(id)).thenAnswer(item -> {
@@ -118,14 +120,22 @@ class ResponsiblePersonServiceTests {
         assertEquals(responsiblePersons.size(), result.getContent().size());
     }
 
-    private ResponsiblePerson getPerson() {
-        return ResponsiblePerson.builder()
+    private @NonNull ResponsiblePerson getPerson() {
+        ResponsiblePerson toReturn = ResponsiblePerson.builder()
                 .cpf("111.222.333-44")
                 .name("Juca Peixoto")
                 .birthDate(LocalDate.of(2023, 4, 2))
                 .phoneNumber("(11)2222-3333")
                 .registrationDate(LocalDateTime.now())
                 .build();
+        assertNotNull(toReturn);
+        return toReturn;
+    }
+
+    private @NonNull UUID getId(){
+        UUID id = UUID.randomUUID();
+        assertNotNull(id);
+        return id;
     }
 
 }

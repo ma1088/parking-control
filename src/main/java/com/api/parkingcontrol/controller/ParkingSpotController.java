@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,23 +48,23 @@ public class ParkingSpotController {
 
     @GetMapping
     public ResponseEntity<Page<ParkingSpot>> getAll(
-            @PageableDefault(page = 0, size = 10, sort = "registrationDate", direction = Direction.ASC)  Pageable pageable) {
+            @PageableDefault(page = 0, size = 10, sort = "registrationDate", direction = Direction.ASC) @NonNull Pageable pageable) {
         return ResponseEntity.ok().body(service.findAll(pageable));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ParkingSpot> getOne(@PathVariable(value = "id") UUID id) {
+    public ResponseEntity<ParkingSpot> getOne(@PathVariable(value = "id") @NonNull UUID id) {
         return ResponseEntity.ok().body(service.findOne(id));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> delete(@PathVariable(value = "id") UUID id) {
+    public ResponseEntity<Object> delete(@PathVariable(value = "id") @NonNull  UUID id) {
         service.deleteParkingSpot(id);
         return ResponseEntity.ok().body(null);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ParkingSpot> put(@PathVariable(value = "id") UUID id,
+    public ResponseEntity<ParkingSpot> put(@PathVariable(value = "id") @NonNull UUID id,
             @RequestBody @Valid ParkingSpotDto parkingSpotDto) {
         return ResponseEntity.ok()
                 .body(service.updateParkingSpot(id, mapper.fromParkingSpotDtoToParkingSpot(parkingSpotDto)));

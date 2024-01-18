@@ -1,9 +1,11 @@
 package com.api.parkingcontrol.service;
 
+import java.util.Objects;
 import java.util.UUID;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import com.api.parkingcontrol.exception.parkingspot.ParkingSpotConflictException;
@@ -19,7 +21,7 @@ public class ParkingSpotService {
 
     final ParkingSpotRepository repository;
 
-    public ParkingSpot saveParkingSpot(ParkingSpot parkingSpot) {
+    public ParkingSpot saveParkingSpot(@NonNull ParkingSpot parkingSpot) {
         validate(parkingSpot);
         return repository.save(parkingSpot);
     }
@@ -33,20 +35,24 @@ public class ParkingSpotService {
             throw new ParkingSpotConflictException("unit already has a car registered for a parking spot");
     }
 
-    public Page<ParkingSpot> findAll(Pageable pageable) {
+    public Page<ParkingSpot> findAll(@NonNull Pageable pageable) {
         return repository.findAll(pageable);
     }
 
-    public ParkingSpot findOne(UUID id) {
-        return repository.findById(id).orElseThrow(() -> new ParkingSpotNotFoundException(id));
+    public @NonNull ParkingSpot findOne(@NonNull UUID id) {
+        ParkingSpot parkingSpot = repository.findById(id).orElseThrow(() -> new ParkingSpotNotFoundException(id));
+        if (Objects.isNull(parkingSpot))
+            return new ParkingSpot();
+        else
+            return parkingSpot;
     }
 
-    public void deleteParkingSpot(UUID id) {
+    public void deleteParkingSpot(@NonNull UUID id) {
         ParkingSpot parkingSpot = findOne(id);
         repository.delete(parkingSpot);
     }
 
-    public ParkingSpot updateParkingSpot(UUID id, ParkingSpot parkingSpot){
+    public ParkingSpot updateParkingSpot(@NonNull UUID id, ParkingSpot parkingSpot) {
         ParkingSpot parkingSpotBefore = findOne(id);
         parkingSpot.setId(id);
         parkingSpot.setRegistrationDate(parkingSpotBefore.getRegistrationDate());

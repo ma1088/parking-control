@@ -8,6 +8,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,14 +35,14 @@ public class ResponsiblePersonController {
     private final ResponsiblePersonService service;
 
     @PostMapping
-    public ResponseEntity<ResponsiblePerson> postResponsiblePerson(@RequestBody @Valid ResponsiblePersonDto dto) {
+    public ResponseEntity<ResponsiblePerson> postResponsiblePerson(@RequestBody @Valid @NonNull ResponsiblePersonDto dto) {
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(service.create(mapper.fromResponsiblePersonDtoToResponsiblePerson(dto)));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ResponsiblePerson> putResponsiblePerson(@PathVariable UUID id,
+    public ResponseEntity<ResponsiblePerson> putResponsiblePerson(@PathVariable @NonNull UUID id,
             @RequestBody @Valid ResponsiblePersonDto dto) {
 
         return ResponseEntity.ok()
@@ -50,17 +51,17 @@ public class ResponsiblePersonController {
 
     @GetMapping
     public ResponseEntity<Page<ResponsiblePerson>> getAllResponsiblePerson(
-            @PageableDefault(page = 0, size = 10, sort = "registrationDate", direction = Direction.ASC) Pageable pageable) {
+            @PageableDefault(page = 0, size = 10, sort = "registrationDate", direction = Direction.ASC) @NonNull Pageable pageable) {
         return ResponseEntity.ok().body(service.findAll(pageable));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ResponsiblePerson> getByIdResponsiblePerson(@PathVariable UUID id) {
+    public ResponseEntity<ResponsiblePerson> getByIdResponsiblePerson(@PathVariable @NonNull UUID id) {
         return ResponseEntity.ok().body(service.findById(id));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteResponsiblePerson(@PathVariable UUID id) {
+    public ResponseEntity<Object> deleteResponsiblePerson(@PathVariable @NonNull UUID id) {
         service.delete(id);
         return ResponseEntity.ok().body("");
     }

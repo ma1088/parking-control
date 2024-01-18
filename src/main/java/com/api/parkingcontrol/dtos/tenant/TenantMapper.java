@@ -3,6 +3,7 @@ package com.api.parkingcontrol.dtos.tenant;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
+import org.springframework.lang.NonNull;
 
 import com.api.parkingcontrol.model.Tenant;
 
@@ -11,5 +12,5 @@ public interface TenantMapper {
 
     @Mapping(target = "registrationDate", expression = "java(java.time.LocalDateTime.now())")
     @Mapping(target = "responsiblePerson.id", source = "responsiblePerson")
-    public Tenant fromTenantDtoToTenant(TenantDto dto);
+    public @NonNull Tenant fromTenantDtoToTenant(TenantDto dto);
 }

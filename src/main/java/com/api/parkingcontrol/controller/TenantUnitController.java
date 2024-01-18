@@ -23,6 +23,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -45,7 +46,7 @@ public class TenantUnitController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TenantUnit> putTenantUnit(@PathVariable UUID id, @RequestBody TenantUnitDto entity) {
+    public ResponseEntity<TenantUnit> putTenantUnit(@PathVariable @NonNull UUID id, @RequestBody TenantUnitDto entity) {
         TenantUnit tenantUnit = mapper.fromTenantUnitDtoToTenantUnit(entity);
         tenantUnit.setId(id);
         
@@ -53,18 +54,18 @@ public class TenantUnitController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TenantUnit> getById(@RequestParam UUID id) {
+    public ResponseEntity<TenantUnit> getById(@RequestParam @NonNull UUID id) {
         return ResponseEntity.ok().body(service.findById(id));
     }
     
     @GetMapping()
     public ResponseEntity<Page<TenantUnit>> getAll(
-            @PageableDefault(page = 0, size = 10, sort = "registrationDate", direction = Direction.ASC) Pageable pageable) {
+            @PageableDefault(page = 0, size = 10, sort = "registrationDate", direction = Direction.ASC) @NonNull Pageable pageable) {
         return ResponseEntity.ok().body(service.findAll(pageable));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteTenantUnit(@PathVariable UUID id){
+    public ResponseEntity<Object> deleteTenantUnit(@PathVariable @NonNull UUID id){
         service.delete(id);
         return ResponseEntity.ok().body(null);
     }

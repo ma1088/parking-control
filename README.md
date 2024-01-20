@@ -25,3 +25,8 @@ Pessoa ||--o{ "Condomínio" : "responde por"
 Unidade ||--|{ "Vagas de Garagem": possui
 "Condomínio" ||--|{ Unidade : possui
 ```
+### 20/01/2024
+#### Versão SpringBoot
+Versão do SpringBoot atualizada para 3.2.2
+#### Exceções
+Propriedades de retorno de exceções a nível de aplicação

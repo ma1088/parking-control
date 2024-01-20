@@ -9,3 +9,9 @@ spring:
         url: jdbc:mysql://localhost:3306/parking_control_db
         username: root
         password: 1234567890
+server:
+    error:
+        include-message: always
+        include-binding-errors: always
+        include-stacktrace: on-param
+        include-exception: false
